@@ -41,7 +41,9 @@ class PaymentSummary extends StatelessWidget {
           Center(
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: primaryColor),
-                onPressed: () {},
+                onPressed: () {
+                  // Get.to(RazorPayAPI());
+                },
                 child: Text("Proceed to payment")),
           )
         ],

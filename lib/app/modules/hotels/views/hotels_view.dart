@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:trippies/app/data/consts/theme.dart';
+import 'package:trippies/app/modules/hotels/widgets/filter.bottomsheet.dart';
 import 'package:trippies/app/modules/hotels/widgets/nearby_hotel_list.dart';
 
 import '../controllers/hotels_controller.dart';
@@ -30,6 +31,22 @@ class HotelsView extends GetView<HotelsController> {
                 fontWeight: FontWeight.bold,
                 fontSize: 25.sp),
           ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Get.bottomSheet(
+                    isScrollControlled: true,
+                    useRootNavigator: true,
+                    // isScrollControlled: true,
+                    FilterBottomSheet());
+              },
+              icon: Icon(
+                Icons.filter_list,
+                color: primaryColor,
+                size: 35.r,
+              ),
+            ),
+          ],
         ),
         body: Padding(
             padding: EdgeInsets.all(16),

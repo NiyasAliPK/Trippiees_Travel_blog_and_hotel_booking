@@ -1,20 +1,19 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HotelsController extends GetxController {
-  //TODO: Implement HotelsController
+  final searchRoomsCtrl = TextEditingController();
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  double currentDistance = 5;
+  double currentAmount = 10;
+
+  distanceFilter(value) {
+    currentDistance = value;
+    update();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  amountFilter(value) {
+    currentAmount = value;
+    update();
   }
-
-  @override
-  void onClose() {}
-  void increment() => count.value++;
 }
