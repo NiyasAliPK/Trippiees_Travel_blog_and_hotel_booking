@@ -1,88 +1,63 @@
-// import 'package:flutter/material.dart';
-// import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
-// class RazorPayAPI extends StatefulWidget {
-//   RazorPayAPI({Key? key}) : super(key: key);
+class RazorPayAPIController extends GetxController {
+  late Razorpay _razorpay;
+  @override
+  void onInit() {
+    super.onInit();
+    _razorpay = Razorpay();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  }
 
-//   @override
-//   State<RazorPayAPI> createState() => _RazorPayAPIState();
-// }
+  @override
+  void onClose() {
+    super.onClose();
+    _razorpay.clear();
+  }
 
-// class _RazorPayAPIState extends State<RazorPayAPI> {
-//   @override
-//   late Razorpay _razorpay;
+  void openCheckout() async {
+    var options = {
+      'key': 'rzp_test_4V7zos9e6AfF7L',
+      'amount': 100,
+      'name': 'Acme Corp.',
+      'description': 'Fine T-Shirt',
+      'retry': {'enabled': true, 'max_count': 1},
+      'send_sms_hash': true,
+      'prefill': {'contact': '8888888888', 'email': 'test@razorpay.com'},
+      'external': {
+        'wallets': ['paytm']
+      }
+    };
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: const Text('Razorpay Sample App'),
-//         ),
-//         body: Center(
-//             child: Row(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: <Widget>[
-//               ElevatedButton(onPressed: openCheckout, child: Text('Open'))
-//             ])),
-//       ),
-//     );
-//   }
+    try {
+      _razorpay.open(options);
+    } catch (e) {
+      debugPrint('Error: e');
+    }
+  }
 
-//   @override
-//   void initState() {
-//     super.initState();
-//     _razorpay = Razorpay();
-//     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-//     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-//     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
-//   }
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    print('Success Response: $response');
+    /*Fluttertoast.showToast(
+        msg: "SUCCESS: " + response.paymentId!,
+        toastLength: Toast.LENGTH_SHORT); */
+  }
 
-//   @override
-//   void dispose() {
-//     super.dispose();
-//     _razorpay.clear();
-//   }
+  void _handlePaymentError(PaymentFailureResponse response) {
+    print('Error Response: $response');
+    /* Fluttertoast.showToast(
+        msg: "ERROR: " + response.code.toString() + " - " + response.message!,
+        toastLength: Toast.LENGTH_SHORT); */
+  }
 
-//   void openCheckout() async {
-//     var options = {
-//       'key': 'rzp_live_ILgsfZCZoFIKMb',
-//       'amount': 100,
-//       'name': 'Acme Corp.',
-//       'description': 'Fine T-Shirt',
-//       'retry': {'enabled': true, 'max_count': 1},
-//       'send_sms_hash': true,
-//       'prefill': {'contact': '8888888888', 'email': 'test@razorpay.com'},
-//       'external': {
-//         'wallets': ['paytm']
-//       }
-//     };
-
-//     try {
-//       _razorpay.open(options);
-//     } catch (e) {
-//       debugPrint('Error: e');
-//     }
-//   }
-
-//   void _handlePaymentSuccess(PaymentSuccessResponse response) {
-//     print('Success Response: $response');
-//     /*Fluttertoast.showToast(
-//         msg: "SUCCESS: " + response.paymentId!,
-//         toastLength: Toast.LENGTH_SHORT); */
-//   }
-
-//   void _handlePaymentError(PaymentFailureResponse response) {
-//     print('Error Response: $response');
-//     /* Fluttertoast.showToast(
-//         msg: "ERROR: " + response.code.toString() + " - " + response.message!,
-//         toastLength: Toast.LENGTH_SHORT); */
-//   }
-
-//   void _handleExternalWallet(ExternalWalletResponse response) {
-//     print('External SDK Response: $response');
-//     /* Fluttertoast.showToast(
-//         msg: "EXTERNAL_WALLET: " + response.walletName!,
-//         toastLength: Toast.LENGTH_SHORT); */
-//   }
-// }
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    print('External SDK Response: $response');
+    /* Fluttertoast.showToast(
+        msg: "EXTERNAL_WALLET: " + response.walletName!,
+        toastLength: Toast.LENGTH_SHORT); */
+  }
+}

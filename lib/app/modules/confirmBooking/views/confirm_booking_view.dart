@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:trippies/app/data/consts/theme.dart';
+import 'package:trippies/app/modules/bottomNavigation/views/bottom_navigation_view.dart';
 import 'package:trippies/app/modules/confirmBooking/widgets/checkin_checkout.dart';
 import 'package:trippies/app/modules/confirmBooking/widgets/payment_summary.dart';
 
@@ -30,6 +31,17 @@ class ConfirmBookingView extends GetView<ConfirmBookingController> {
             'Confirm Booking',
             style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
           ),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Get.offAll(() => BottomNavigationView());
+                },
+                icon: Icon(
+                  Icons.home,
+                  color: primaryColor,
+                  size: 30.sp,
+                ))
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -158,6 +170,24 @@ class ConfirmBookingView extends GetView<ConfirmBookingController> {
                         ),
                       ],
                     )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 15.h, bottom: 10.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Total no of rooms',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Obx(() {
+                      return Text(
+                        confirmContrller.roomCount.value.toString(),
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      );
+                    })
                   ],
                 ),
               ),
