@@ -1,16 +1,14 @@
-# trippies
+TRIPPIEES
 
-A new Flutter project.
+This app is created for those who love to travel and explore the world. whether it is nature's beauty or urban peace life we got your back. This will show all the famous and historical spots in the locations where you are planning to travel. And also we will provide you with the best accommodations nearby your selected spot to visit.
 
-## Getting Started
+FEATURES AND TECHNOLOGIES USED:-
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+See the history of places.
+Find hotels nearby the selected spot.
+Book hotels according to the user needs.
+Save favorite spots.
+receive notifications.
+Payment integration.
+REST API.
+Getx for state management.
